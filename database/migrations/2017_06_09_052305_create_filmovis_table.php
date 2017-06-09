@@ -13,10 +13,17 @@ class CreateFilmovisTable extends Migration
      */
     public function up()
     {
-        Schema::create('filmovis', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('filmovi', function (Blueprint $table) {
+            
+            $table->increments('id')->unsigned();
+            $table->char('naslov', 60);
+            $table->integer('id_zanr')->unsigned()->index('id_zanr');
+            $table->integer('godina');
+            $table->integer('trajanje');
+            $table->char('slika');
             $table->timestamps();
-        });
+      });
+       
     }
 
     /**
@@ -26,6 +33,6 @@ class CreateFilmovisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('filmovis');
+        Schema::dropIfExists('filmovi');
     }
 }

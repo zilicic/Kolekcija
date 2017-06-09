@@ -13,10 +13,11 @@ class CreateZanrsTable extends Migration
      */
     public function up()
     {
-        Schema::create('zanrs', function (Blueprint $table) {
+       Schema::create('zanr', function (Blueprint $table) {
             $table->increments('id');
+            $table->char('naziv', 60);
             $table->timestamps();
-        });
+             });
     }
 
     /**
@@ -26,6 +27,6 @@ class CreateZanrsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zanrs');
+        Schema::dropIfExists('zanr');
     }
 }
