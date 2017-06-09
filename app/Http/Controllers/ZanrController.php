@@ -1,8 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Zanr;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
+use Validator;
+use Input;
+use Redirect;
+use View;
+
 
 class ZanrController extends Controller
 {

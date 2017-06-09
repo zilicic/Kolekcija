@@ -1,6 +1,6 @@
 <!-- app/views/fakultet.blade.php -->
 
-@extends('kolekcija')
+@extends('master')
 @section('title', 'Details')
 
 @section('content')
@@ -12,9 +12,10 @@
 <h1>Kolekcija Filmova!</h1>
 
 	<div class="jumbotron text-center">
-		<h2>{{$_ENV['APP_URL']}}</h2>
-		<p>
-			
+           
+		 <p>
+                    <a href="{{ URL::to('filmovi') }}">Filmovi<span class="badge"> {{ App\Filmovi::all()->count() }}</span></a><br>
+                    <a href="{{ URL::to('zanr') }}">Žanrovi<span class="badge"> {{ App\Zanr::all()->count() }}</span></a>
 		</p>
 	</div>
 

@@ -1,10 +1,9 @@
-@extends('kolekcija')
+@extends('master')
 @section('title', 'Svi žanrovi')
 
 @section('content')
 <h1>Svi žanrovi</h1>
-
-<!--<a href="{{ URL::to('nastavnik/create') }}">Kreiraj novog nastavnika</a>-->
+ <a class="btn btn-small btn-success" href="{{ URL::to('zanr/create') }}">Kreiraj novi žanr</a>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
@@ -27,7 +26,7 @@
             <td>{{ $value->id}}</td>
             <td>{{ $value->naziv }}</td>
 
-            <!-- we will also add show, edit, and delete buttons -->
+            <!-- we will also add new, show, edit, and delete buttons -->
             <td>
 
 
@@ -43,8 +42,9 @@
                 <a class="btn btn-small btn-success" id="{{'zanr-' . $value->id}}" href="{{ URL::to('zanr/' . $value->id) }}">Pokaži žanr</a>
 
                 <!-- edit this nerd (uses the edit method found at GET /nerds/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('zanr/' . $value->zanr . '/edit') }}">Uredi zanr</a>
-
+                <a class="btn btn-small btn-info" href="{{ URL::to('zanr/' . $value->id . '/edit') }}">Uredi žanr</a>
+                
+                               
             </td>
         </tr>
         @endforeach

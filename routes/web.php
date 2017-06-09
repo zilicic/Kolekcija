@@ -14,5 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/kolekcija', function () {
+    return view('index');
+});
 Route::resource('filmovi',   'FilmoviController');
 Route::resource('zanr',   'ZanrController');
