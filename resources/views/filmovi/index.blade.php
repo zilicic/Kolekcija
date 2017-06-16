@@ -14,12 +14,12 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>ID</th>
+           <th>Fotografija</th>
             <th>Naslov</th>
              <th>Žanr</th>
               <th>Godina</th>
                <th>Trajanje</th>
-                <th>Fotografija</th>
+               
                       
         <th></th>
 
@@ -28,8 +28,15 @@
     <tbody>
         @foreach($filmovi as $key => $value)
         <tr>
-            <td>{{ $value->id}}</td>
+            <td>
+                <img src="/{{$value->slika}}" width="50">
+              </td>
             <td>{{ $value->naslov }}</td>
+             <td>{{ $value->zanr->naziv }}</td>
+              <td>{{ $value->godina }}</td>
+               <td>{{ $value->trajanje }} min</td>
+                
+               
 
             <!-- we will also add new, show, edit, and delete buttons -->
             <td>
@@ -50,9 +57,10 @@
                 <a class="btn btn-small btn-info" href="{{ URL::to('filmovi/' . $value->id . '/edit') }}">Uredi film</a>
                 
                  <!-- new  (uses the create method) -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('filmovi/create') }}">Kreiraj novi film</a>
+                
             </td>
         </tr>
+        
         @endforeach
     </tbody>
 </table>

@@ -7,19 +7,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       
     </head>
-<body>
-<div class="container">
-
-<nav class="navbar navbar-inverse">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="{{ URL::to('kolekcija') }}">Početna</a>
-	</div>
-	<ul class="nav navbar-nav">
-		
-	</ul>
-</nav>
-@yield('content')
-</div>
+   
+ <body background="/images/movie.png"  class="img-responsive" style="background-repeat:no-repeat;background-position:right top;">
+     @include('_navigation')
+     
+    <div class="container">       
+    @yield('content')
+    </div>
+     
 </body>
 </html>

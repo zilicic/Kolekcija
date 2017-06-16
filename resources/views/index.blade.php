@@ -1,23 +1,67 @@
-<!-- app/views/fakultet.blade.php -->
+
 
 @extends('master')
 @section('title', 'Details')
 
 @section('content')
-<!-- will be used to show any messages -->
+
 @if (Session::has('message'))
 	<div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
-
-<h1>Kolekcija Filmova!</h1>
-
-	<div class="jumbotron text-center">
+	<div class="jumbotron text-center progress-bar-striped">
            
-		 <p>
-                    <a href="{{ URL::to('filmovi') }}">Filmovi<span class="badge"> {{ App\Filmovi::all()->count() }}</span></a><br>
-                    <a href="{{ URL::to('zanr') }}">Žanrovi<span class="badge"> {{ App\Zanr::all()->count() }}</span></a>
+		 <p>Broj filmova u bazi:
+                     <a><span class="badge">{{ App\Filmovi::all()->count() }}</span></a><br>
+                     </p>
+                     <p> Broj žanrova u bazi: 
+                    <a><span class="badge"> {{ App\Zanr::all()->count() }}</span></a>
 		</p>
 	</div>
+<?php
+  $alphabet = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+              'K', 'L', 'M', 'N', 'O', 'P','Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y','Z');
+         
+    foreach ($alphabet as $letter) {
+        echo' 
+            <ul class="pagination">
+		<li><a href=?letter='.$letter.'>'.$letter.'</a></li>
+		</ul>
+              ';
+               }
+               
+                if(isset($_GET["letter"]))
+      $letter = $_GET['letter'];
+        {
+            $mysqly= new mysqli('localhost','root','','kolekcija');
+                }
+            $query="SELECT * FROM filmovi WHERE naslov LIKE '$letter%'or naslov LIKE 'strtolower($letter)%'";
+  $result= mysqli_query( $mysqly, $query);
+   
+   
+   //$result= mysqli_query($conn, $query);
+                      while($row= mysqli_fetch_array( $result))
+                      {
+                    
+                echo '
+                    <div class="container-fluid">
+                    <div class="row">
+                    <div class="col-sm-3">
+                    <div class="rounded">
+                    <img src="'.$row["slika"].'" alt="Fotografija" style="width:100%">
+                    <div class="caption">
+            <p>'.$row["naslov"].' ('.$row["godina"].')<br/>
+                 Trajanje: '.$row["trajanje"].' min</p>
+               
+                        </div>
+                        </a>  
+                       </div>
+                    </div>
+                    </div>
+                 </div>
+                   ';
+        }
+                    
+               ?>
 
 @endsection
 

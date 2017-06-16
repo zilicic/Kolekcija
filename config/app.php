@@ -137,7 +137,7 @@ return [
 
     'providers' => [
         Collective\Html\HtmlServiceProvider::class,
-        
+         
         //Tinker
         Laravel\Tinker\TinkerServiceProvider::class,
         // Za google charts statistike /studenti/stats

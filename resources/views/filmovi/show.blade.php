@@ -11,16 +11,18 @@
 
 <div><h1>Filmovi: {{ $filmovi->naslov }} 
 
-        <a class="btn btn-small btn-info" href="{{ URL::to('filmovi/' . $filmovi->id . '/edit') }}">Uredi ovaj film <span class="glyphicon glyphicon-edit"></span></a></h1></div>
+        <a class="btn btn-small btn-info" href="{{ URL::to('filmovi/' . $filmovi->id . '/edit') }}">
+            Uredi ovaj film <span class="glyphicon glyphicon-edit"></span></a></h1></div>
 
 <div class="jumbotron text-center">
         <p>
         <strong>Šifra:</strong> {{ $filmovi->id }}<br>
         <strong>Naslov:</strong> {{$filmovi->naslov }}<br>
-          <strong>Žanr:</strong> {{$filmovi->id_zanr }}<br>
+          <strong>Žanr:</strong> {{$filmovi->zanr->naziv }}<br>
             <strong>Godina:</strong> {{$filmovi->godina }}<br>
               <strong>Trajanje:</strong> {{$filmovi->trajanje}}<br>
-                <strong>Fotografija:</strong> {{$filmovi->slika }}<br>
+                <strong>Fotografija:</strong> <br>
+                 <img alt="Slika {{$filmovi->naslov }}" width="200" src="/{{$filmovi->slika}}" title="Slika {{$filmovi->naslov }}"/>
             </p>
 
 </div>
