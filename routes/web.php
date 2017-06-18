@@ -11,6 +11,7 @@
 |
 */
 
+Route::get('show', array('uses' => 'FilmoviController@alphabet', 'as' => 'show'));
 Route::get('/', function () {
     return view('index');
 });

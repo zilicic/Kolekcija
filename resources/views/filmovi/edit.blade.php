@@ -40,7 +40,7 @@
         
         <div class="form-group">
                  {!! Form::label('slika', 'Slika') !!}
-                 {!! Form::file( 'slika', array('class' => 'form-control')) !!}
+                 {!! Form::file( 'slika', Input::old('slika'), array('class' => 'form-control')) !!}
         </div>
 
 	

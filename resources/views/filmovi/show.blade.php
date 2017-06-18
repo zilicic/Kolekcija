@@ -22,8 +22,14 @@
             <strong>Godina:</strong> {{$filmovi->godina }}<br>
               <strong>Trajanje:</strong> {{$filmovi->trajanje}}<br>
                 <strong>Fotografija:</strong> <br>
-                 <img alt="Slika {{$filmovi->naslov }}" width="200" src="/{{$filmovi->slika}}" title="Slika {{$filmovi->naslov }}"/>
-            </p>
+                
+              
+<p>
+    <img alt="Film {{$filmovi->naslov}}" width="300" src="{{ Storage::url($filmovi->slika)}}" title="Slika {{$filmovi->naslov }}"/>
+</p>
+
+   
+
 
 </div>
 

@@ -28,9 +28,10 @@
     <tbody>
         @foreach($filmovi as $key => $value)
         <tr>
-            <td>
-                <img src="/{{$value->slika}}" width="50">
-              </td>
+          <td class="text-center">
+                <img src="{{ Storage::url($value->slika)}}" width="60">
+               
+            </td>
             <td>{{ $value->naslov }}</td>
              <td>{{ $value->zanr->naziv }}</td>
               <td>{{ $value->godina }}</td>
