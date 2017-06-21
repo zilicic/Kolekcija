@@ -42,11 +42,18 @@
                  {!! Form::label('slika', 'Slika') !!}
                  {!! Form::file( 'slika', Input::old('slika'), array('class' => 'form-control')) !!}
         </div>
-
 	
         {!! Form::submit('Uredi film!', array('class' => 'btn btn-primary','name'=>'Uredi film')) !!}
 
 {{ Form::close() }}
+        @if ($filmovi->slika==1)     
+     
+<p>
+  
+    <img alt="Film {{$filmovi->naslov}}" width="300" src="{{ Storage::url('images/'.$filmovi->id)}}.jpg" title="Slika {{$filmovi->naslov }}"/>
+</p>
+
+  @endif
 
 @endsection
 

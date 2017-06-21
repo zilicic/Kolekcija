@@ -10,16 +10,21 @@ use Validator;
 use Input;
 use Redirect;
 use View;
+use Storage;
+
 
 class FilmoviController extends Controller
 {
  
-    public function alphabet() {
-   $query="SELECT * FROM filmovi WHERE naslov LIKE '$letter%'or naslov LIKE 'strtolower($letter)%'";
-   $statstable= \Illuminate\Support\Facades\DB::select($query);
- 
-     return Redirect::route('/show');
-   
+    public function alphabet(Request $request) {
+      
+      $letter = $_GET['letter'];
+      $query="SELECT * FROM filmovi WHERE naslov LIKE '$letter%'or naslov LIKE 'strtolower($letter)%'";
+      $query = $request->id;
+      
+                       
+                  
+    
         }
         
                       
@@ -65,7 +70,7 @@ class FilmoviController extends Controller
             'id_zanr' => 'required|numeric',
             'godina' => 'required|numeric',
             'trajanje' => 'required|numeric',
-           'slika' => 'required'
+            'slika' => 'required'
         );
       
       
@@ -80,96 +85,43 @@ class FilmoviController extends Controller
                             ->withInput(Input::except('password'));
         } else 
             {
-                     
-           $path=request()->file('slika')->store('public/images');
-            // store
+                                           
+           // store
+            //$path=request()->file('slika')->store('public/images');
                  
         $fil = new Filmovi;
          $fil->naslov=Input::get('naslov');
           $fil->id_zanr=Input::get('id_zanr');
           $fil->godina=Input::get('godina');
           $fil->trajanje=Input::get('trajanje');
-          $fil->slika = $path;
-          //$fil->save();
-          
-         // try {
-        /*
+          $fil->slika = 0;
+          $fil->save();
+         
           if (Input::hasFile('slika')) {
-            
-             $picture_tmp = $_FILES['slika']['tmp_name'];
-                  $picture_name = $_FILES['slika']['name'];
-                  $picture_type = $_FILES['slika']['type'];
-                $picture_basename= basename($_FILES['slika']['name']);
- 
-                  $allowed_type = array('image/png', 'image/gif', 'images/jpg', 'image/jpeg');
-
-                 if(in_array($picture_type, $allowed_type)) {
-                 //$path = storage_path().'/app/public/images/'.$picture_basename; 
-                 $path=request()->->store('public/images');
-                 
-                
-                 
-                  
-                  } else {
-                  $error[] = 'File type not allowed';
-                    }
-                  move_uploaded_file($picture_tmp, $path);
-                   
-            /*
-                     $imageName = $fil->id;
-                $imageExtension = $request->slika->getClientOriginalExtension();
-                $request->slika->move(storage_path('app/public/images'), $imageName . "." . $imageExtension);
-                // RESIZE SLIKE I KREIRANJE THUMBNAILA
-                // Get new sizes
-                $filename = storage_path('app/public/images') . DIRECTORY_SEPARATOR . $imageName . "." . $imageExtension; //'test.jpg';
-                list($width, $height) = getimagesize($filename);
-// generate thumbnail
-                $newwidth = 100;
-                $newheight = $height * ($newwidth / $width);
-// Load
-                $thumb = imagecreatetruecolor($newwidth, $newheight);
-                $source = imagecreatefromjpeg($filename);
-// Resize
-                imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-                imagejpeg($thumb, storage_path('app/public/images') . DIRECTORY_SEPARATOR . 'thumb_' . $imageName . "." . $imageExtension, 75);
-           
-                $newwidth = 400;
-                $newheight = $height * ($newwidth / $width);
-// Load
-                $thumb = imagecreatetruecolor($newwidth, $newheight);
-                $source = imagecreatefromjpeg($filename);
-// Resize
-                imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-//Sacuvaj resizanu sliku
-                imagejpeg($thumb, storage_path('app/public/images') . DIRECTORY_SEPARATOR . $imageName . "." . $imageExtension, 75);
-                
-            
-            }
-                if (file_exists(storage_path('app/public/images' . DIRECTORY_SEPARATOR . $fil->id . ".jpg"))) {
+              
+            $imageName = $fil->id;
+            //$imageExtension = $request->slika->getClientOriginalExtension();
+            $request->slika->move(storage_path('app/public/images'), $imageName . ".jpg" );
+          
+             
+    if (file_exists(storage_path('app/public/images' . DIRECTORY_SEPARATOR . $fil->id .".jpg"))) {
                 $fil->slika = 1;
             } else {
                 $fil->slika = 0;
-            }   
-           
-           */}
-                
-          //$fil->slika =$path;
-            $fil->save();
+            }
           
-             
-          /* 
-          // Ukoliko upload ne odradi javi poruku
-            Session::flash('message', 'Film je kreiran ali nije uspio upload slike: ');
-            return Redirect::to('filmovi');
-*/ 
+           }
+         $fil->save();  
+            
+       
+
            Session::flash('message', 'Uspjesno kreiran film!');      
         return Redirect::to('filmovi');
-    
-        
-    }
-    
-
-    
+            
+            }
+            }
+            
+      
 
     /**
      * Display the specified resource.
@@ -192,9 +144,9 @@ class FilmoviController extends Controller
      */
     public function edit($id)
     {
-       $fil = \App\Filmovi::find($id);
+       $fil = Filmovi::find($id);
          
-          $zanr = \App\Zanr::pluck('naziv', 'id');
+          $zanr = Zanr::pluck('naziv', 'id');
            
       
         return View::make('filmovi.edit')
@@ -225,70 +177,35 @@ class FilmoviController extends Controller
                             ->withErrors($validator)
                             ->withInput(Input::except('password'));
         } else {
-            // store
-            $fil = \App\Filmovi::find($id);
-             
-           $fil->id=Input::get('id');
-           $fil->naslov=Input::get('naslov');
-          $fil->id_zanr=Input::get('id_zanr');
-          $fil->godina=Input::get('godina');
-          $fil->trajanje=Input::get('trajanje');
-        
-           
-           
-         if (Input::hasFile('slika')) {
-              
-                /*
-                 $picture_tmp = $_FILES['slika']['tmp_name'];
-                  $picture_name = $_FILES['slika']['name'];
-                  $picture_type = $_FILES['slika']['type'];
-                $picture_basename= basename($_FILES['slika']['name']);
- 
-                  $allowed_type = array('image/png', 'image/gif', 'image/jpg', 'image/jpeg');
-
-                 if(in_array($picture_type, $allowed_type)) {
-                 $path = storage_path().'/app/public/images/'.$picture_basename; 
-                  } else {
-                  $error[] = 'File type not allowed';
-                    }
-                  move_uploaded_file($picture_tmp, $path);
-               */
-                      $imageName = $fil->id;
-                $imageExtension = $request->slika->getClientOriginalExtension();
-                $request->slika->move(storage_path('app/public/images'), $imageName . "." . $imageExtension);
-                // RESIZE SLIKE I KREIRANJE THUMBNAILA
-                // Get new sizes
-                $filename = storage_path('app/public/images') . DIRECTORY_SEPARATOR . $imageName . "." . $imageExtension; //'test.jpg';
-                list($width, $height) = getimagesize($filename);
-// generate thumbnail
-                                $newwidth = 100;
-                $newheight = $height * ($newwidth / $width);
-// Load
-                $thumb = imagecreatetruecolor($newwidth, $newheight);
-                $source = imagecreatefromjpeg($filename);
-// Resize
-                imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-                imagejpeg($thumb, storage_path('app/public/images') . DIRECTORY_SEPARATOR . 'thumb_' . $imageName . "." . $imageExtension, 75);
-           
-                                $newwidth = 400;
-                $newheight = $height * ($newwidth / $width);
-// Load
-                $thumb = imagecreatetruecolor($newwidth, $newheight);
-                $source = imagecreatefromjpeg($filename);
-// Resize
-                imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-//Sacuvaj resizanu sliku
-                imagejpeg($thumb, storage_path('app/public/images') . DIRECTORY_SEPARATOR . $imageName . "." . $imageExtension, 75);
-                
-            }
             
-                if (file_exists(storage_path('app/public/images' . DIRECTORY_SEPARATOR . $fil->id . ".jpg"))) {
+                        
+            // store
+           //$path=request()->file('slika')->store('public/images');
+               
+               
+            $fil = \App\Filmovi::find($id);
+            $fil->id=Input::get('id');
+            $fil->naslov=Input::get('naslov');
+            $fil->id_zanr=Input::get('id_zanr');
+            $fil->godina=Input::get('godina');
+            $fil->trajanje=Input::get('trajanje');
+            //$fil->slika =$path;
+      if (Input::hasFile('slika')) {
+              
+            $imageName = $fil->id;
+           // $imageExtension = $request->slika->getClientOriginalExtension();
+            $request->slika->move(storage_path('app/public/images'), $imageName . ".jpg");
+       
+             
+    if (file_exists(storage_path('app/public/images' . DIRECTORY_SEPARATOR . $fil->id .".jpg" ))) {
                 $fil->slika = 1;
             } else {
                 $fil->slika = 0;
-            }   
+            }
+          
+           }
            
-          //$fil->slika =$path;
+          
            $fil->save();
             // redirect
             Session::flash('message', 'Film je uspješno uređen!');
@@ -304,22 +221,18 @@ class FilmoviController extends Controller
      */
     public function destroy($id)
     {
-        $fil = \App\Filmovi::find($id);
+        $fil = Filmovi::find($id);
        $fil->delete();
+       //Storage::delete('public/images/slika');
        
-        try{
         $filename       = storage_path('app/public/images') . DIRECTORY_SEPARATOR. $fil->id . ".jpg"; 
-        $filename_thumb = storage_path('app/public/images') . DIRECTORY_SEPARATOR. "thumb_" . $fil->id . ".jpg"; 
+       
         if (file_exists($filename)){
             unlink($filename);
         }
-        if (file_exists($filename_thumb)){
-            unlink($filename_thumb);
-        }
-        }
- catch (Exception $e){
-           }
-            // redirect
+        
+        
+                   // redirect
         Session::flash('message', 'Film je uspješno obrisan!');
         return Redirect::to('filmovi');
     }

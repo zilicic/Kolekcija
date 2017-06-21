@@ -10,12 +10,13 @@
        
     </head>
    
- <body background="/images/movie.png"  class="img-responsive" style="background-repeat:no-repeat;background-position:right top;">
+ <body background="{{ Storage::url('images/')}}movie.png"  class="img-responsive" style="background-repeat:no-repeat;background-position:right top;">
      @include('_navigation')
      
     <div class="container">       
     @yield('content')
     </div>
-     
+   
 </body>
+
 </html>

@@ -8,7 +8,7 @@ class Filmovi extends Model
 {
      protected $table    = 'filmovi';
    
-     protected  $fillable = ['naslov',
+      public  $fillable = [  'naslov',
                              'id_zanr',
                              'godina',
                              'trajanje',
