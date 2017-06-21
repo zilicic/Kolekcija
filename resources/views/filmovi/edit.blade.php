@@ -30,7 +30,8 @@
 
         <div class="form-group">
 		{{ Form::label('godina', 'Godina filma') }}
-		{{ Form::number( 'godina', Input::old('godina'), array('class' => 'form-control')) }}
+		
+                {{ Form::selectYear('godina',\Carbon\Carbon::now()->toDateTimeString(), 1900) }}
 	</div>
 
          <div class="form-group">

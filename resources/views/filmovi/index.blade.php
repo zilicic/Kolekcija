@@ -66,5 +66,5 @@
         @endforeach
     </tbody>
 </table>
-
+{{ $filmovi->links() }}
 @endsection

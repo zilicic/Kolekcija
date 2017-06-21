@@ -10,7 +10,7 @@
        
     </head>
    
- <body background="{{ Storage::url('images/')}}movie.png"  class="img-responsive" style="background-repeat:no-repeat;background-position:right top;">
+ <body background="{{ Storage::url('images/')}}movie.png"  class="img-responsive" style="background-repeat:no-repeat;background-position:top right;">
      @include('_navigation')
      
     <div class="container">       

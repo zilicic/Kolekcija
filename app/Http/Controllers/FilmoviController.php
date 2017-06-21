@@ -33,9 +33,9 @@ class FilmoviController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($broj=5)
     {
-       $filmovi =Filmovi::all()->reverse();
+       $filmovi =Filmovi::paginate($broj);
        
         return View::make('filmovi.index')
                         ->with('filmovi', $filmovi);

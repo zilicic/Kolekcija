@@ -20,7 +20,7 @@
 	</div>
 
 <div class="container flex-center">
- <?php
+     <?php
  $alphabet = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
               'K', 'L', 'M', 'N', 'O', 'P','Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y','Z');
          
@@ -31,6 +31,7 @@
 		</ul>
               ';
                }
+               
         if(isset($_GET["letter"]))
       $letter = $_GET['letter'];
         {
@@ -43,14 +44,14 @@
                       {
                     //{{ Storage::url('images/'.$filmovi->id)}}
                 echo '
-                    <div class="container-fluid">
+                    <div class="jumbotron text-center">
                     <div class="row">
-                    <div class="col-sm-3">
+                   
                     '?>
-                    <div class="rounded">
-                    
-                    <img src="{{ Storage::url('images/'.$row["slika"])}}.jpg" alt="Fotografija" style="width:100%">
-                    <div class="caption">
+    
+                    <div class="img-responsive">
+                       <img src="{{ Storage::url('images/'.$row["id"])}}.jpg" alt="Fotografija" style="width:30%">
+                    <div class="container">
                         <?php
                         echo '
             <p>'.$row["naslov"].' ('.$row["godina"].')<br/>
@@ -59,7 +60,7 @@
                         </div>
                         </a>  
                        </div>
-                    </div>
+                   
                     </div>
                  </div>
                    ';
