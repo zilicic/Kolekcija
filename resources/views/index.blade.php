@@ -9,7 +9,10 @@
 	<div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
 
-	<div class="jumbotron text-center progress-bar-striped">
+{!! Form::open(['method'=>'GET','url'=>'kolekcija','class'=>'navbar-form navbar-left','role'=>'letter'])  !!}
+
+
+	<div class="container text-center glyphicon-align-center">
            
 		 <p>Broj filmova u bazi:
                      <a><span class="badge">{{ App\Filmovi::all()->count() }}</span></a><br>
@@ -19,7 +22,10 @@
 		</p>
 	</div>
 
+
+
 <div class="container flex-center">
+
      <?php
  $alphabet = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
               'K', 'L', 'M', 'N', 'O', 'P','Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y','Z');
@@ -31,7 +37,7 @@
 		</ul>
               ';
                }
-               
+        /*       
         if(isset($_GET["letter"]))
       $letter = $_GET['letter'];
         {
@@ -43,14 +49,10 @@
                       while($row= mysqli_fetch_array($result))
                       {
                     //{{ Storage::url('images/'.$filmovi->id)}}
-                echo '
-                    <div class="jumbotron text-center">
-                    <div class="row">
-                   
-                    '?>
-    
-                    <div class="img-responsive">
-                       <img src="{{ Storage::url('images/'.$row["id"])}}.jpg" alt="Fotografija" style="width:30%">
+                                                    
+                    ?>
+                    <div class="container text-center glyphicon-align-center">
+                     <img src="{{ Storage::url('images/'.$row["id"])}}.jpg" alt="Fotografija" style="width:20%">
                     <div class="container">
                         <?php
                         echo '
@@ -59,14 +61,30 @@
                
                         </div>
                         </a>  
-                       </div>
-                   
+                                         
                     </div>
-                 </div>
+              
                    ';
-        }}        
+        }}*/        
          
                ?>
+       
+                      
+        <table class="table table-bordered table-hover" >
+            <thead>
+             
+                <th>Name</th>
+            </thead>
+            <tbody>
+                @foreach( $naslovi  as $naslov)
+                <tr>
+                    <td>{{ $naslov->naslov }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@stop
    
         
    {{ Form::close() }}

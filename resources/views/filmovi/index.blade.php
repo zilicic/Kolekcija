@@ -29,14 +29,14 @@
         @foreach($filmovi as $key => $value)
         <tr>
            
-          <td class="text-center">@if ($value->slika!=0)
-              <img src="{{ Storage::url('images/'.$value->id)}}.jpg" width="50" >
+          <td style="alignment-adjust: central">@if ($value->slika!=0)
+              <img src="{{ Storage::url('images/'.$value->id)}}.jpg" width="80" >
                 @endif
             </td>
-            <td>{{ $value->naslov }}</td>
-             <td>{{ $value->zanr->naziv }}</td>
-              <td>{{ $value->godina }}</td>
-               <td>{{ $value->trajanje }} min</td>
+            <td style="font-size: large; font-family: serif">{{ $value->naslov }}</td>
+             <td style="font-size: large; font-family: serif">{{ $value->zanr->naziv }}</td>
+              <td style="font-size: large; font-family: serif">{{ $value->godina }}</td>
+               <td style="font-size: large; font-family: serif">{{ $value->trajanje }} min</td>
                 
                
 

@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('alphabet', 'FilmoviController@alphabet');
+//Route::get('/kolekcija/{letter}', ['uses' =>'FilmoviController@showMove'])->where('letter', '[A-Za-z]+')->naslov('filmovi');
+//Route::get('alphabet', 'FilmoviController@alphabet');
 //Route::get('alphabet', array('uses' => 'FilmoviController@alphabet'));
 Route::get('/', function () {
     return view('index');

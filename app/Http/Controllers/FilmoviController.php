@@ -16,16 +16,48 @@ use Storage;
 class FilmoviController extends Controller
 {
  
-    public function alphabet(Request $request) {
-      
+    public function alphabet() {
+     $collection = collect(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+              'K', 'L', 'M', 'N', 'O', 'P','Q','R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y','Z']);
+          collect()->all();
+          
+     
+      return View::make('index')
+                        ->with('filmovi', collect);
+        /* 
       $letter = $_GET['letter'];
       $query="SELECT * FROM filmovi WHERE naslov LIKE '$letter%'or naslov LIKE 'strtolower($letter)%'";
       $query = $request->id;
+      */
+   /*
+        $film = DB::table('filmovi')->orderBy('naslov', 'asc')->get();
+        
+        $result = array();
+        
+        foreach($film as $naslov) {
+            $duz_naslov = $naslov->naslov;
+            $slova = substr($duz_naslov, 0, 1);
+            $result[$slova][] = $duz_naslov;
+        }
+        
+        return view('naslov', ['naslov' => $result]);
+    }  
+    * 
+*/
+    }
+
+    public function showMove(){
       
-                       
+        $kolekcija = Filmovi::where('naslov', 'LIKE', '%'.$letter.'%')->get();
+        return view('index',compact('naslov'));
+    
+       
+        
+      
+    }
                   
     
-        }
+      
         
                       
     /**
@@ -39,6 +71,18 @@ class FilmoviController extends Controller
        
         return View::make('filmovi.index')
                         ->with('filmovi', $filmovi);
+        
+     
+    $letter = \Request::get('letter'); //<-- we use global request to get the param of URI
+    $naslovi = Filmovi::where('naslov','LIKE','%'.$letter.'%')
+        ->orderBy('naslov')
+        ->paginate(10);
+ 
+        return view('index',compact('kolekcije'));
+      
+//return view('index')->with('naslovi', $naslovi );
+//return view('index',['kolekcija'=>$naslovi]);
+        
     }
 
     /**
